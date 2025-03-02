@@ -1,0 +1,31 @@
+learning/
+
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Dependency directories
+vendor/
+
+# Data directories
+data/
+test-data/
+
+# Log files
+logs/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo 

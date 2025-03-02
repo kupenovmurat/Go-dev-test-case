@@ -1,0 +1,130 @@
+version: '3'
+
+services:
+  rest-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.rest
+    ports:
+      - "8080:8080"
+    volumes:
+      - rest-data:/app/data
+    networks:
+      - storage-network
+    command: ["./rest-server", "--port=8080"]
+
+  storage-server-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.storage
+    ports:
+      - "8081:8081"
+    volumes:
+      - storage-data-1:/app/data
+    networks:
+      - storage-network
+    command: ["./storage-server", "--port=8081", "--id=storage-1", "--rest=http://rest-server:8080"]
+    depends_on:
+      - rest-server
+
+  storage-server-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.storage
+    ports:
+      - "8082:8082"
+    volumes:
+      - storage-data-2:/app/data
+    networks:
+      - storage-network
+    command: ["./storage-server", "--port=8082", "--id=storage-2", "--rest=http://rest-server:8080"]
+    depends_on:
+      - rest-server
+
+  storage-server-3:
+    build:
+      context: .
+      dockerfile: Dockerfile.storage
+    ports:
+      - "8083:8083"
+    volumes:
+      - storage-data-3:/app/data
+    networks:
+      - storage-network
+    command: ["./storage-server", "--port=8083", "--id=storage-3", "--rest=http://rest-server:8080"]
+    depends_on:
+      - rest-server
+
+  storage-server-4:
+    build:
+      context: .
+      dockerfile: Dockerfile.storage
+    ports:
+      - "8084:8084"
+    volumes:
+      - storage-data-4:/app/data
+    networks:
+      - storage-network
+    command: ["./storage-server", "--port=8084", "--id=storage-4", "--rest=http://rest-server:8080"]
+    depends_on:
+      - rest-server
+
+  storage-server-5:
+    build:
+      context: .
+      dockerfile: Dockerfile.storage
+    ports:
+      - "8085:8085"
+    volumes:
+      - storage-data-5:/app/data
+    networks:
+      - storage-network
+    command: ["./storage-server", "--port=8085", "--id=storage-5", "--rest=http://rest-server:8080"]
+    depends_on:
+      - rest-server
+
+  storage-server-6:
+    build:
+      context: .
+      dockerfile: Dockerfile.storage
+    ports:
+      - "8086:8086"
+    volumes:
+      - storage-data-6:/app/data
+    networks:
+      - storage-network
+    command: ["./storage-server", "--port=8086", "--id=storage-6", "--rest=http://rest-server:8080"]
+    depends_on:
+      - rest-server
+
+  test-client:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - test-data:/app/test-data
+    networks:
+      - storage-network
+    command: ["./test-client", "--rest=http://rest-server:8080", "--storage=http://storage-server-1:8081", "--size=10485760"]
+    depends_on:
+      - rest-server
+      - storage-server-1
+      - storage-server-2
+      - storage-server-3
+      - storage-server-4
+      - storage-server-5
+      - storage-server-6
+
+networks:
+  storage-network:
+    driver: bridge
+
+volumes:
+  rest-data:
+  storage-data-1:
+  storage-data-2:
+  storage-data-3:
+  storage-data-4:
+  storage-data-5:
+  storage-data-6:
+  test-data: 

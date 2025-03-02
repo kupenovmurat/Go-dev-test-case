@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/kupenovmurat/distributed-storage/pkg/test"
+	"github.com/kupenovmurat/Go-dev-test-case/pkg/test"
 )
 
 var (

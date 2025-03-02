@@ -29,7 +29,6 @@ type StorageServer struct {
 	Available bool   `json:"available"`
 	UsedSpace int64  `json:"usedSpace"`
 }
-}
 
 type UploadRequest struct {
 	ChunkID string `json:"chunkId"`
